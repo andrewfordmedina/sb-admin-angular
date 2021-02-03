@@ -18,7 +18,8 @@ export class JwtInterceptor implements HttpInterceptor {
         const isLoggedIn = currentUser && currentUser.access_token;
         const isApiUrl = request.url.startsWith(environment.apiUrl);        
         //this.authenticationService.isApiRunning();
-        if (!this.authGuard.IsExpired(currentUser)) {
+        
+        if (!this.authGuard.IsExpired(currentUser) && !request.url.includes("oauth/token")) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${currentUser.access_token}`, 'Content-Type': 'application/json'

@@ -26,7 +26,10 @@ export class AuthGuard implements CanActivate {
         return false;
     }
 
-    IsExpired(currentUser: any) {               
+    IsExpired(currentUser: any) {  
+        if(currentUser==null){
+            return true;
+        }             
         console.log(moment().format('MMM DD h:mm A')  + " is After " + currentUser.expirationDate );
         console.log(moment(moment().format('MMM DD h:mm A')).isAfter(currentUser.expirationDate));
         return moment(moment().format('MMM DD h:mm A')).isAfter(currentUser.expirationDate);        
