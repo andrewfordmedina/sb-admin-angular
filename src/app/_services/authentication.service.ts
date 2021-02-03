@@ -32,9 +32,10 @@ export class AuthenticationService {
          body.set('username', username);
          body.set('password', password);
          body.set('grant_type', 'password');
-         
-        return this.http.post<any>(`${environment.apiUrl}/oauth/token`  ,body.toString() , {'headers' :this.createAuthorizationHeader()})
-            .pipe(map(
+          
+        return this.http.post<any>(`${environment.apiUrl}/oauth/token`  ,body.toString(),{'headers' :this.createAuthorizationHeader()})
+            .pipe(
+                map(
                 user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 var added = moment().add(user.expires_in,'seconds').format('MMM DD h:mm A');
@@ -44,8 +45,12 @@ export class AuthenticationService {
                 this.currentUserSubject.next(user);
                 console.log(user);
                 return user;
-            }
-            ));
+            },error => {
+                console.log("inside error map");
+                console.log(error);
+              }
+            )
+            );
     }
 
     logout() {

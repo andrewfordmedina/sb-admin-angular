@@ -1,9 +1,11 @@
+import { errorMessage } from './../_services/errorMessageService';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { first } from 'rxjs/operators';
 import { ReactiveFormsModule } from '@angular/forms'
+
 
 @Component({
   selector: 'app-login',
@@ -21,12 +23,14 @@ export class LoginComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
+      private errorMessage: errorMessage
   ) { 
       // redirect to home if already logged in
       if (this.authenticationService.currentUserValue) { 
           this.router.navigate(['/login']);
       }
+    
   }
 
   ngOnInit() {
@@ -37,6 +41,7 @@ export class LoginComponent implements OnInit {
 
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.error = this.errorMessage.serviceData ;
   }
 
   // convenience getter for easy access to form fields
@@ -59,8 +64,11 @@ export class LoginComponent implements OnInit {
               },
               error => {
                 //   console.log(`message ${error}`)
+                console.log("error is here");
+                console.log(`error is ${error}`);
                   this.error = error;
                   this.loading = false;
+                  this.errorMessage.errorWasInvoked =false;
               });
   }
 

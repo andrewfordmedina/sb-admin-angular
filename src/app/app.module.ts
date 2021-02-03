@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { errorMessage } from './_services/errorMessageService';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { CommonModule } from '@angular/common';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    errorMessage,
     // fakeBackendProvider,
   ],
   bootstrap: [AppComponent]
