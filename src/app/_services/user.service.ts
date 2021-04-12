@@ -1,4 +1,5 @@
 import { User } from './../_models/user';
+import { Response } from './../_models/response';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -12,9 +13,9 @@ export class UserService {
         return { 'Content-Type': 'application/json'} 
       }
 
-    getAll() {
+      getAll() {
         console.log("getting users");
-        return this.http.get<User[]>(`${environment.apiUrl}/user`);
+        return this.http.get<Response>(`${environment.apiUrl}/api/users`);
     }
 
     get(id:string) {

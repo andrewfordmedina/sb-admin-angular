@@ -14,6 +14,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { errorMessage } from './_services/errorMessageService';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+import { TagifyModule } from 'ngx-tagify'; 
 
 
 @NgModule({
@@ -26,7 +30,10 @@ import { errorMessage } from './_services/errorMessageService';
     HttpClientModule,
     AdminModule,
     ReactiveFormsModule,
-    AppRoutingModule    
+    AppRoutingModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added   
+    TagifyModule.forRoot(),     
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

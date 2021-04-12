@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent  {
 
   
-  constructor() { 
+  constructor(private toastr: ToastrService) { 
     this.loadScripts(); 
   } 
+
+  toast(){
+    this.toastr.info('Generating report...','', {positionClass:'toast-bottom-right'});
+    setTimeout(()=>{ this.toastr.success('Successfully generated','',{positionClass:'toast-bottom-right'});    
+  },6000 )
+  }
 
   loadScripts() { 
   

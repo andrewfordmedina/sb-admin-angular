@@ -12,7 +12,6 @@ import * as moment from 'moment';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -20,8 +19,21 @@ export class AuthenticationService {
 
     createAuthorizationHeader() {
         return { 'Authorization': 'Basic ' +
-        btoa('ccors-client:ccors-secret'), 'Content-Type': 'application/x-www-form-urlencoded'} 
+        btoa(`${environment.client}:${environment.secret}`), 'Content-Type': 'application/x-www-form-urlencoded'} 
       }
+    
+      createAuthorizationHeaderSSE() : object {
+          console.log('inside created method with ' + this.currentUserValue.access_token );
+        return    {
+            headers:{
+                Authorization: `Bearer ${this.currentUserValue.access_token}`
+            },
+            heartbeatTimeout: 1000, 
+            connectionTimeout: 1000            
+        }; 
+      }
+
+
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;

@@ -18,7 +18,7 @@ export class JwtInterceptor implements HttpInterceptor {
         const isLoggedIn = currentUser && currentUser.access_token;
         const isApiUrl = request.url.startsWith(environment.apiUrl);        
         //this.authenticationService.isApiRunning();
-        
+        console.log('intercepting...');
         if (!this.authGuard.IsExpired(currentUser) && !request.url.includes("oauth/token")) {
             request = request.clone({
                 setHeaders: {

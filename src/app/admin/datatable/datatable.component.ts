@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from 'src/app/_models/user';
@@ -21,7 +22,7 @@ export class DatatableComponent implements OnInit {
     {firstName: "andrew",middleName: "M", lastName:"name", role:"admin",dateCreated:"10/16/2020" },
   ];
   
-  constructor(private userService: UserService,private sharedService: SharedService) { 
+  constructor(private userService: UserService,private sharedService: SharedService,private activatedRoute:ActivatedRoute) { 
     this.loadScripts();
     this.sharedService.sharedMessage.subscribe(message => this.message = message)
     this.sharedService.nextMessage("Second Message")
@@ -31,11 +32,16 @@ load(){
 }
 
   ngOnInit() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-      console.log(this.users);
+  
+    this.activatedRoute.data.pipe(first()).subscribe((data)  => {
+      this.users = data[0].user;
       this.loading = true;
-  });
+    });
+  //   this.userService.getAll().pipe(first()).subscribe(users => {
+  //     this.users = users.user;
+  //     console.log(this.users);
+  //     this.loading = true;
+  // });
     
 }
 

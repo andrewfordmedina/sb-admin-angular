@@ -1,0 +1,47 @@
+<p>form-tagify works!</p>
+
+<div class="container">
+    <h3>Cart</h3>
+    
+    <!-- <div class="cart-item" *ngFor="let item of items">
+      <span>{{ item.name }} </span>
+      <span>{{ item.price | currency }}</span>
+    </div> -->
+      {{diagnostic}}
+    
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+    
+      <div>
+        <label for="name">
+          Name
+        </label>
+        <input id="name" type="text" formControlName="name" class="form-control">
+      </div>
+    
+      <div>
+        <label for="address">
+          Address
+        </label>
+        <input id="address" type="text" formControlName="address" class="form-control">
+      </div>
+    
+      <div>
+        <label for="amount">
+          Amount
+        </label>
+        <input id="amount" type="text" formControlName="amount" class="form-control" value="{{amount}}">
+      </div>
+
+      <div>
+        <label for="category">
+          Category
+        </label>
+        <tagify formControlName="tags"></tagify>
+      </div>
+
+    
+      <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Purchase</button>
+    
+    </form>
+    
+    </div>

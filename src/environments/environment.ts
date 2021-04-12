@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
- 
-  apiUrl: 'http://localhost:8080/core'
+  apiUrl: 'http://localhost:8080/core',
+  client: 'eqas_test',
+  secret: 'eqas_test'
+
 };
 
 /*

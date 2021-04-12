@@ -72,7 +72,7 @@ export class TestApiComponent implements OnInit{
 
   selectAll(){
     this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
+     // this.users = users;
       this.loading = true;
       
     });
